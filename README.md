@@ -24,7 +24,10 @@ Tensorflow Hub URLs will be enough.
 
 # Requirements
 
-Using these models requires [Tensorflow Hub](https://www.tensorflow.org/hub) and [Tensorflow Text](https://www.tensorflow.org/tutorials/tensorflow_text/intro). In particular, Tensorflow Text provides ops that allow the model to directly work on text, requiring no pre-processing or tokenization from the user. We test using Tensorflow version 1.14 and Tensorflow Text version 0.6.0 (which is compatible with Tensorflow 1.14). A list of available versions can be found [on the Tensorflow Text github repo](https://github.com/tensorflow/text/releases).
+Using these models requires [Tensorflow Hub](https://www.tensorflow.org/hub) and [Tensorflow Text](https://www.tensorflow.org/tutorials/tensorflow_text/intro). In particular, Tensorflow Text provides ops that allow the model to directly work on text, requiring no pre-processing or tokenization from the user. You must `import tensorflow_text` before loading the tensorflow hub modules, or you will see an error about 'ops missing from the python registry'.
+
+We test using Tensorflow version 1.14 and Tensorflow Text version 0.6.0 (which is compatible with Tensorflow 1.14). A list of available versions can be found [on the Tensorflow Text github repo](https://github.com/tensorflow/text/releases).
+
 
 
 # Models
