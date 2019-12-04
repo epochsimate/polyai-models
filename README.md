@@ -53,7 +53,7 @@ See the [`convert-examples.ipynb` notebook](examples/convert-examples.ipynb) for
 
  **default**
 
- Takes as input `sentences`, a string tensor of sentences to encode. Outputs 1024 dimensional vectors, giving a representation for each sentence. These are the output of the sqrt-N reduction in the shared tranformer encoder. These representations work well as input to classification models.
+ Takes as input `sentences`, a string tensor of sentences to encode. Outputs 1024 dimensional vectors, giving a representation for each sentence. These are the output of the sqrt-N reduction in the shared tranformer encoder. These representations work well as input to classification models. Note that these vectors are not normalized in any way, so you might find l2 normalizing them helps for learning, especially when using SGD.
 
 ```python
 sentence_encodings = module(
