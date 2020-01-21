@@ -31,6 +31,7 @@ Using these models requires [Tensorflow Hub](https://www.tensorflow.org/hub) and
 * Tensorflow 2.0 and Tensorflow Text 2.0.x
 
 A list of available versions can be found [on the Tensorflow Text github repo](https://github.com/tensorflow/text/releases).
+Note for Tensorflow 2.0 you may need to disable eager execution with `tf.compat.v1.disable_eager_execution()`.
 
 
 # Models
