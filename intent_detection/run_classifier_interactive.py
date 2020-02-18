@@ -17,12 +17,9 @@ import csv
 import numpy as np
 import tensorflow as tf
 
-from intent_detection.classifier import (
-    train_model)
-from intent_detection.encoder_clients import (
-    get_encoder_client)
-from intent_detection.utils import (
-    _object_from_name)
+from intent_detection.classifier import train_model
+from intent_detection.encoder_clients import get_encoder_client
+from intent_detection.utils import _object_from_name
 
 
 def _preprocess_data(encoder_client, train_file):

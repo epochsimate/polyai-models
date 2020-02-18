@@ -8,21 +8,19 @@ The included sentence encoders are:
 Copyright PolyAI Limited.
 """
 
+import abc
 import os
 import pickle
-
-import abc
 
 import glog
 import numpy as np
 import tensorflow as tf
 import tensorflow_hub as tf_hub
-from tqdm import tqdm
-from sklearn.preprocessing import normalize
-from bert.tokenization import FullTokenizer
-
-import tf_sentencepiece  # NOQA: it is used when importing USE.
 import tensorflow_text  # NOQA: it is used when importing ConveRT.
+import tf_sentencepiece  # NOQA: it is used when importing USE.
+from bert.tokenization import FullTokenizer
+from sklearn.preprocessing import normalize
+from tqdm import tqdm
 
 from encoder_client import EncoderClient
 

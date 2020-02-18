@@ -4,8 +4,8 @@ Copyright PolyAI Limited.
 """
 
 from copy import deepcopy
-import tensorflow as tf
 
+import tensorflow as tf
 
 default = tf.contrib.training.HParams(
     # model hparams

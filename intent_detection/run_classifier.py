@@ -9,20 +9,17 @@ usage:
 Copyright PolyAI Limited.
 """
 
+import csv
 import json
 import os
-import csv
 
+import glog
 import numpy as np
 import tensorflow as tf
-import glog
 
-from intent_detection.classifier import (
-    train_model)
-from intent_detection.encoder_clients import (
-    get_encoder_client)
-from intent_detection.utils import (
-    parse_args_and_hparams)
+from intent_detection.classifier import train_model
+from intent_detection.encoder_clients import get_encoder_client
+from intent_detection.utils import parse_args_and_hparams
 
 _TRAIN = "train"
 _TEST = "test"

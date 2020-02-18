@@ -10,7 +10,6 @@ import numpy as np
 import tensorflow as tf
 from tqdm import tqdm
 
-
 # Fix the seed
 np.random.seed(0)
 

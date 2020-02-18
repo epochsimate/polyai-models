@@ -4,8 +4,8 @@ Copyright PolyAI Limited.
 """
 
 import os
-import unittest
 import tempfile
+import unittest
 from unittest.mock import patch
 
 import numpy as np

@@ -3,12 +3,11 @@
 Copyright PolyAI Limited.
 """
 
+import glog
 import numpy as np
 import tensorflow as tf
 
-import glog
-from intent_detection.batchers import (
-    SamplingBatcher, iter_to_generator)
+from intent_detection.batchers import SamplingBatcher, iter_to_generator
 
 
 class PolynomialDecay:
