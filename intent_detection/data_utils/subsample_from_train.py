@@ -7,7 +7,6 @@ import argparse
 import csv
 
 import numpy as np
-import tensorflow as tf
 
 from tqdm import tqdm
 
@@ -43,7 +42,7 @@ def _main():
     fname = flags.train_file
     n = int(flags.n_per_class)
 
-    with tf.gfile.Open(fname, "r") as data_file:
+    with open(fname, "r") as data_file:
         reader = list(csv.reader(data_file))
         header = reader[0]
         assert header == _HEADER
