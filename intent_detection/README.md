@@ -1,8 +1,5 @@
 [![PolyAI](polyai-logo.png)](https://poly-ai.com/)
 
-<TODO: not sure if the circleCI stuff is necessary at this lvl>
-
-[![CircleCI](https://circleci.com/gh/PolyAI-LDN/polyai-models.svg?style=svg&circle-token=51b384ab1be46e42b3f007fa2d9cfdb31b7599e4)](https://circleci.com/gh/PolyAI-LDN/polyai-models)
 
 # Intent detection models
 
