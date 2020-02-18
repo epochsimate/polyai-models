@@ -11,7 +11,7 @@ import os
 import urllib.request
 
 _DATA_URL = ("https://raw.githubusercontent.com/clinc/oos-eval/"
-                       "master/data/data_full.json")
+             "master/data/data_full.json")
 _DESIRED_SETS = ["train", "test", "val"]
 _HEADER = ["text", "category"]
 
