@@ -8,6 +8,7 @@ import csv
 
 import numpy as np
 import tensorflow as tf
+
 from tqdm import tqdm
 
 # Fix the seed
