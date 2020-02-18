@@ -67,10 +67,10 @@ Dataset released by PolyAI composed of online banking queries.
 To download the benchmarked datasets run the following bash script:
 
 ```bash
-cd <INTENT_REPO_ROOT>
+cd <POLYAI_MODELS_REPO_ROOT>
 export PYTHONPATH=.
 export DATA_DIR=<PATH_TO_DATA_DIR>
-sh data_utils/get_all_data.sh $DATA_DIR
+bash intent_detection/data_utils/get_all_data.sh $DATA_DIR
 ```
 
 This will create `<PATH_TO_DATA_DIR>` and 3 subdirectories with the train and test data of the datasets converted into csv format. It will also create the low data regime train splits.
