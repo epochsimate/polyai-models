@@ -18,12 +18,12 @@ import json
 import os
 
 import tensorflow as tf
-
 from bert import modeling, tokenization
 from bert.run_classifier import (DataProcessor, InputExample,
                                  PaddingInputExample,
                                  file_based_convert_examples_to_features,
                                  model_fn_builder)
+
 from intent_detection.utils import parse_args_and_hparams
 
 _EVAL_BATCH_SIZE = 8

@@ -17,12 +17,12 @@ import numpy as np
 import tensorflow as tf
 import tensorflow_hub as tf_hub
 import tensorflow_text  # NOQA: it is used when importing ConveRT.
-
 import tf_sentencepiece  # NOQA: it is used when importing USE.
 from bert.tokenization import FullTokenizer
-from encoder_client import EncoderClient
 from sklearn.preprocessing import normalize
 from tqdm import tqdm
+
+from encoder_client import EncoderClient
 
 _CONVERT_PATH = "http://models.poly-ai.com/convert/v1/model.tar.gz"
 _USE_PATH = ("https://tfhub.dev/google/universal-sentence-encoder-"

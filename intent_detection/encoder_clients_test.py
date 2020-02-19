@@ -10,9 +10,9 @@ from unittest.mock import patch
 
 import numpy as np
 import tensorflow as tf
+from sklearn.preprocessing import normalize
 
 from intent_detection import encoder_clients
-from sklearn.preprocessing import normalize
 
 
 class UseEncoderClientTest(unittest.TestCase):

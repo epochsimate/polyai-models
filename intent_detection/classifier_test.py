@@ -21,8 +21,8 @@ class PolynomialDecayTest(unittest.TestCase):
         )
 
         self.assertEqual(decay_obj(0), init_lr)
-        self.assertAlmostEqual(decay_obj(1), 0.3577708763999664)
-        self.assertAlmostEqual(decay_obj(4), 0.04472135954999578)
+        self.assertAlmostEqual(decay_obj(1), 0.35777, places=5)
+        self.assertAlmostEqual(decay_obj(4), 0.04472, places=5)
         self.assertEqual(decay_obj(5), 0)
 
 
@@ -41,7 +41,7 @@ class TrainModelTest(unittest.TestCase):
         encoder_type="convert",
 
         # training hparams
-        balance_data=True
+        balance_data=True,
     )
 
     def test_training_no_validation(self):

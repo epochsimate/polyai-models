@@ -7,7 +7,6 @@ import argparse
 import csv
 
 import numpy as np
-
 from tqdm import tqdm
 
 # Fix the seed
