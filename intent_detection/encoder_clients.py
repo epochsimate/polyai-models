@@ -19,7 +19,6 @@ import tensorflow_hub as tf_hub
 import tensorflow_text  # NOQA: it is used when importing ConveRT.
 import tf_sentencepiece  # NOQA: it is used when importing USE.
 from bert.tokenization import FullTokenizer
-from sklearn.preprocessing import normalize
 from tqdm import tqdm
 
 from encoder_client import EncoderClient
@@ -28,6 +27,12 @@ _CONVERT_PATH = "http://models.poly-ai.com/convert/v1/model.tar.gz"
 _USE_PATH = ("https://tfhub.dev/google/universal-sentence-encoder-"
              "multilingual-large/1")
 _BERT_PATH = "https://tfhub.dev/google/bert_uncased_L-24_H-1024_A-16/1"
+
+
+def l2_normalize(encodings):
+    """L2 normalizes the given matrix of encodings."""
+    norms = np.linalg.norm(encodings, ord=2, axis=-1, keepdims=True)
+    return encodings / norms
 
 
 class ClassificationEncoderClient(object):
@@ -178,7 +183,7 @@ class ConvertEncoderClient(ClassificationEncoderClient):
                 self._encoder_client.encode_sentences(
                     sentences[i:i + self._batch_size]))
         glog.setLevel("INFO")
-        return normalize(np.vstack(encodings))
+        return l2_normalize(np.vstack(encodings))
 
 
 class UseEncoderClient(ClassificationEncoderClient):
@@ -287,7 +292,7 @@ class BertEncoderClient(ClassificationEncoderClient):
                 self._session.run(
                     self._embeddings,
                     self._feed_dict(sentences[i:i + self._batch_size])))
-        return normalize(np.vstack(encodings))
+        return l2_normalize(np.vstack(encodings))
 
     @staticmethod
     def _create_tokenizer_from_hub_module(uri):

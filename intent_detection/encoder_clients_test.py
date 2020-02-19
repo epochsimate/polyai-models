@@ -3,6 +3,7 @@
 Copyright PolyAI Limited.
 """
 
+import math
 import os
 import tempfile
 import unittest
@@ -10,7 +11,6 @@ from unittest.mock import patch
 
 import numpy as np
 import tensorflow as tf
-from sklearn.preprocessing import normalize
 
 from intent_detection import encoder_clients
 
@@ -59,7 +59,9 @@ class ConveRTEncoderTest(unittest.TestCase):
 
         encodings = encoder.encode_sentences(["hello"])
         # Note than normalised encodings are returned
-        np.testing.assert_allclose(normalize([[1, 1, 1]]), encodings)
+        expected_encodings = np.asarray([[1., 1., 1.]])
+        expected_encodings /= math.sqrt(3.)
+        np.testing.assert_allclose(expected_encodings, encodings)
 
 
 class BERTEncoderTest(unittest.TestCase):
@@ -67,7 +69,7 @@ class BERTEncoderTest(unittest.TestCase):
     def setUpClass(cls):
         """Create a dummy vocabulary file."""
         vocab_tokens = [
-            "[UNK]", "[CLS]", "[SEP]", "hello", "hi",
+            "[UNK]", "[CLS]", "[SEP]", "hello", "world",
         ]
         with tempfile.NamedTemporaryFile(mode="w", delete=False) as v_writer:
             v_writer.write("".join([x + "\n" for x in vocab_tokens]))
@@ -82,7 +84,6 @@ class BERTEncoderTest(unittest.TestCase):
     def test_encode_sentences(self, mock_module_cls):
 
         def mock_module(inputs=None, signature=None, as_dict=None):
-            print(inputs)
             self.assertTrue(as_dict)
             if signature == "tokens":
                 self.assertEqual(
@@ -106,21 +107,14 @@ class BERTEncoderTest(unittest.TestCase):
             [(("test_uri",), {'trainable': False})] * 2,
             mock_module_cls.call_args_list)
 
-        # Final encodings will just be the count of the tokens in each
-        # sentence, repeated 3 times.
-        encodings = encoder.encode_sentences(["hello"])
-        np.testing.assert_allclose(normalize([[3, 3, 3]]), encodings)
-
-        encodings = encoder.encode_sentences(["hello", "hello hi"])
-        np.testing.assert_allclose(
-            normalize([[3, 3, 3], [4, 4, 4]]),
-            encodings
-        )
+        encodings = encoder.encode_sentences(["hello world"])
+        expected_encodings = np.asarray([[1., 1., 1.]])
+        expected_encodings /= math.sqrt(3.)
+        np.testing.assert_allclose(expected_encodings, encodings)
 
 
 class CombinedEncoderClientTest(unittest.TestCase):
-    @staticmethod
-    def test_encode_sentences():
+    def test_encode_sentences(self):
         class Encoder1(encoder_clients.ClassificationEncoderClient):
             def encode_sentences(self, sentences):
                 return np.array([[1, 1, 1]] * len(sentences))
@@ -134,6 +128,36 @@ class CombinedEncoderClientTest(unittest.TestCase):
         )
         encodings = combined.encode_sentences(["hello"])
         np.testing.assert_allclose(encodings, [[1, 1, 1, 2, 2, 2, 2]])
+
+
+class L2NormalizeTest(unittest.TestCase):
+    def test_fuzz(self):
+        """Test l2_normalize with random inputs."""
+
+        def l2_normalize_python(encodings):
+            """Implement l2 normalize in python."""
+            out = []
+            for encoding in encodings:
+                l2_norm = 0.0
+                for value in encoding:
+                    l2_norm += value * value
+                l2_norm = math.sqrt(l2_norm)
+                out.append(
+                    [value / l2_norm for value in encoding]
+                )
+            return out
+
+        # Compare numpy l2_normalize with l2_normalize_python.
+        for i in range(100):
+            # Test with a variety of input shapes.
+            num_encodings = (i % 5) + 1
+            encoding_dim = (i % 7) + 2
+            encodings = np.random.uniform(size=[num_encodings, encoding_dim])
+            norm_np = encoder_clients.l2_normalize(encodings)
+            self.assertEqual(
+                [num_encodings, encoding_dim], list(norm_np.shape))
+            norm_py = l2_normalize_python(encodings)
+            np.testing.assert_allclose(norm_py, norm_np)
 
 
 if __name__ == "__main__":
