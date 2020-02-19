@@ -1,18 +1,15 @@
-[![PolyAI](polyai-logo.png)](https://poly-ai.com/)
+# Intent detection models and benchmarks
 
 
-# Intent detection models
-
-
-This section shares the intent detection models used in the benchmarking 
-presented in INTENT PAPER URL. These intent detectors are very lightweight 
-and can be trained even in a laptop cpu, while still having superior 
-performance than some popular larger models. They also show very good 
+This section shares the intent detection models used in the benchmarking
+presented in *TODO*. These intent detectors are very lightweight
+and can be trained even with a laptop cpu, while still having superior
+performance to some popular larger models. They also show very good
 performance in low data settings.
-These models are based on classifiers trained on top 2 popular sentence 
-encoders: ConveRT and USE. We also use BERT_large as a baseline, both as a 
-fixed sentence encoder and finetuning the whole model. We also share 
-scripts to profile the intent detection models.
+
+These models are based on classifiers trained on top of 2 popular sentence
+encoders: ConveRT and USE. We also use BERT_large as a baseline, both finetuned
+and as a fixed sentence encoder.
 
 * [Requirements](#requirements)
 * [Benchmarked datasets](#Benchmarked-datasets)
@@ -36,28 +33,27 @@ Also, python 3.6 is required, because of `tf_sentencepiece` and `Tensorflow 1.14
 
 Dataset released by the Heriot-Watt University composed of popular personal assistant queries.
 
-[Dataset paper](https://arxiv.org/pdf/1903.05566.pdf)
-[Dataset repository](https://github.com/xliuhw/NLU-Evaluation-Data)
+[Dataset paper](https://arxiv.org/pdf/1903.05566.pdf),
+[Dataset repository](https://github.com/xliuhw/NLU-Evaluation-Data).
 
 ## Clinc Intent Classification dataset
 
 Dataset released by Clinc AI composed of popular personal assistant queries.
 
-[Dataset paper](https://arxiv.org/pdf/1909.02027.pdf)
-[Dataset repository](https://github.com/clinc/oos-eval)
+[Dataset paper](https://arxiv.org/pdf/1909.02027.pdf),
+[Dataset repository](https://github.com/clinc/oos-eval).
 
 ## PolyAI Online Banking dataset
 
 Dataset released by PolyAI composed of online banking queries.
 
-[Dataset paper](TODO)
-[Dataset repository](TODO)
+[Dataset paper](TODO) *TODO*,
+[Dataset repository](TODO) *TODO*.
 
 ## Dataset comparison
 
-|         	        | Domain 	        | Example intents       | Train set size    | Test set size     | Number of intents |
+|  Dataset   | Domain 	        | Example intent       | Train set size    | Test set size     | Number of intents |
 | :---              | :---:	            | :---:	                | :---:	            | :---:	            | :---:	            |
-| **Dataset**       | 	                | 	                    | 	                | 	                |                   |
 | HWU               | Personal assistant| play_music            | 15000	            | 4500	            | 150               |
 | Clinc             | Personal assistant| alarm_query           | 9960	            | 1076	            | 64                |
 | Banking           | Online banking    | card_about_to_expire	| 10003	            | 3080	            | 77                |
@@ -136,12 +132,11 @@ run it with:
 export OUTPUT_DIR=<PATH_TO_OUTPUT_DIR>
 python run_bert_finetuned_classifier.py --data_dir <INTENT_DATA_DIR> \
   --params config.bert_ft \
-  --output_dir=$OUTPUT_DIR 
+  --output_dir=$OUTPUT_DIR
 ```
 
 
-
-Note that to avoid unnecessary computations and catastrofic forgetting, each Task and Data Regime has its own hyperparameters for BERT finetuned. 
+Note that to avoid unnecessary computations and catastrofic forgetting, each Task and Data Regime has its own hyperparameters for BERT finetuned.
 These hyperparameters are defined in `config.py` for each task and data regime. e.g. to run in banking with the "30" data regime, run:
 
 ```bash
@@ -165,8 +160,8 @@ python run_bert_finetuned_classifier.py --data_dir <INTENT_DATA_DIR> \
 ## Train your own intent detector
 
 You can easily train your own intent detector and interact with the
- `run_classifier_interactive.py` script. This will train an intent detector 
- in any data you provide through a csv file and let you interact with it. 
+ `run_classifier_interactive.py` script. This will train an intent detector
+ in any data you provide through a csv file and let you interact with it.
  The csv must have the following format:
 
 ```csv
@@ -181,7 +176,7 @@ sentence7, intent3
 sentence8, intent3
 ```
 
-Then just run 
+Then just run
 
 ```bash
 python run_classifier_interactive.py --train_file <INTENT_FILE_PATH> \
@@ -190,8 +185,8 @@ python run_classifier_interactive.py --train_file <INTENT_FILE_PATH> \
 ```
 
 And an intent detector will be trained and you will be able to interact with it.
-You can change any hyperparameter either through the config.py file or through 
-`--params_overrides`
+You can change any hyperparameter either through the `config.py` file or through the `--params_overrides` flag.
+
 ## Citations
 
 When using these models in your work, or the banking dataset please cite our paper, PAPER URL
